@@ -6,20 +6,20 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.diaa.news.R
-import com.diaa.news.databinding.RvNewsBinding
+import com.diaa.news.databinding.RvSearchLayoutBinding
 import com.diaa.news.pojo.Article
 import com.squareup.picasso.Picasso
 
-class ArticleAdapter(private val newsListener: NewsAdapterListener) :
-    RecyclerView.Adapter<ArticleAdapter.ViewHolder>() {
+class SearchNewsAdapter(private val searchAdapterListener: SearchAdapterListener) :
+    RecyclerView.Adapter<SearchNewsAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            RvNewsBinding.inflate(
+            RvSearchLayoutBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
             ),
-            newsListener
+            searchAdapterListener
         )
     }
 
@@ -42,8 +42,8 @@ class ArticleAdapter(private val newsListener: NewsAdapterListener) :
     fun submitList(list: List<Article>) = differ.submitList(list)
 
     class ViewHolder(
-        private val binding: RvNewsBinding,
-        private val newsListener: NewsAdapterListener
+        private val binding: RvSearchLayoutBinding,
+        private val newsListener: SearchAdapterListener
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: Article) {
@@ -56,21 +56,11 @@ class ArticleAdapter(private val newsListener: NewsAdapterListener) :
             else
                 binding.ivNews.setImageResource(R.drawable.ic_baseline_broken_image_24)
 
-            if (data.isFav) binding.ivFav.setImageResource(R.drawable.ic_baseline_red_favorite_24)
-            else binding.ivFav.setImageResource(R.drawable.ic_baseline_favorite_border_24)
-
-            binding.ivFav.setOnClickListener {
-
-                if (!data.isFav) binding.ivFav.setImageResource(R.drawable.ic_baseline_red_favorite_24)
-                else binding.ivFav.setImageResource(R.drawable.ic_baseline_favorite_border_24)
-                newsListener.onFavClick(data)
-            }
             binding.root.setOnClickListener { newsListener.onClick(data) }
         }
     }
 
-    interface NewsAdapterListener {
+    interface SearchAdapterListener {
         fun onClick(article: Article)
-        fun onFavClick(article: Article)
     }
 }
