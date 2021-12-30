@@ -2,11 +2,9 @@ package com.diaa.news.ui.fragment.details
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.diaa.news.databinding.FragmentDetailsBinding
 
@@ -33,16 +31,6 @@ class DetailsFragment : Fragment() {
             settings.javaScriptEnabled = true
             loadUrl(arguments?.getString("url")!!)
         }
-
-        requireActivity().onBackPressedDispatcher.addCallback(
-            viewLifecycleOwner,
-            object :
-                OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    Log.e("Details Frag", "handleOnBackPressed: ",)
-                }
-            }
-        )
     }
 
     override fun onDestroyView() {

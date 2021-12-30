@@ -1,6 +1,5 @@
 package com.diaa.news.ui.fragment.search
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -22,7 +21,6 @@ class SearchViewModel @Inject constructor(private val repo: SearchRepo) : ViewMo
     val errorLiveData: LiveData<String> get() = _errorMutableLive
 
     fun search(query: String?) {
-        Log.e("view mocel", "search: $query",)
         viewModelScope.launch {
             repo.getSearchResult(query!!.trim()).collect {
                 if (it.isSuccessful && it.code() == 200) {

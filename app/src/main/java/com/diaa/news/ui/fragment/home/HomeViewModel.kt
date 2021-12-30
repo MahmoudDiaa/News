@@ -1,6 +1,5 @@
 package com.diaa.news.ui.fragment.home
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -27,7 +26,6 @@ class HomeViewModel @Inject constructor(private val repo: HomeRepo) : ViewModel(
     val articleLiveData: LiveData<ArrayList<Article>> get() = _newMutableLive
 
     private val _favMutableLive = MutableLiveData<ArrayList<Article>>()
-    val favArticleLiveData: LiveData<ArrayList<Article>> get() = _favMutableLive
 
     private val _errorMutableLive = MutableLiveData<String>()
     val errorLiveData: LiveData<String> get() = _errorMutableLive
@@ -37,7 +35,6 @@ class HomeViewModel @Inject constructor(private val repo: HomeRepo) : ViewModel(
         repo.getFavArticle()?.collect {
 
             if (!it.isNullOrEmpty()) {
-                Log.e("viewmodel", "if cond")
                 _favMutableLive.postValue(it.toCollection(ArrayList()))
             }
         }
